@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project</title>
+
+<link   rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <header>
+    
+      <div class="mobile">
+           <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
+      
+      </div>
+      
+      
+        <nav>
+          
+            <ul>
+              
+                <li class="navbar"><a href= index.html>Home</a></li>
+                <li class="navbar"><a href= locations.html>Browse</a></li>
+                  <li class="navbar mobile"><a href= contacts.html>option 3</a></li>
+                  <li class="navbar mobile"><a href= contacts.html>option 4</a></li>
+                <li class="logo desktop-logo"><a>spotify logo</a></li>
+             
+                <li class="navbar desktop"><a href= contacts.html>option 3</a></li>
+                <li class="navbar desktop"><a href= contacts.html>option 4</a></li>
+            </ul>
+
+        </nav>
+
+        
+
+    </header> 
+
+<div class="title feature-box">   
+
+    <h3>Top Albums Today</h3>
+
+</div>
+
+    <section  class="feature-box">
+
+
+    
+      <button id="slideLeft" type="button" class="mobile"><-</button>
+
+
+        <ul id="container">
+            <li> <figure data-link="contacts.html">       
+              <img src="images/igor.jpeg" alt="">
+              <figcaption>album 1</figcaption>
+          </figure>
+        </li>
+
+            <li>
+              <figure>       
+                <img src="images/flowerboy.jpeg" alt="">
+                <figcaption>album 2</figcaption>
+            </figure>
+            </li>
+
+            <li>
+              <figure>       
+                <img src="images/cmiygl.jpeg" alt="">
+                <figcaption>album 3</figcaption>
+                
+            </figure>
+            </li>
+
+            <li>
+               
+        <figure>       
+          <img src="images/wolf.jpeg" alt="">
+          <figcaption>album 4</figcaption>
+      </figure>
+            </li>
+
+            <li>
+              <figure>       
+                <img src="images/favourite.jpeg" alt="">
+                <figcaption>album 5</figcaption>
+            </figure>
+            </li>
+
+            <li>
+              <figure>       
+                <img src="images/WCPGW.jpeg" alt="">
+                <figcaption>album 6</figcaption>
+            </figure>
+        
+            </li>
+
+            <li>
+              <figure>       
+                <img src="images/sunburn.jpeg" alt="">
+                <figcaption>album 7</figcaption>
+            </figure>
+        
+            </li>
+<!-- 
+            <li>
+              <figure>       
+                <img src="images/a_heros_death.jpeg" alt="">
+                <figcaption>album 8</figcaption>
+            </figure>
+        
+            </li>
+
+            <li>
+              <figure>       
+                <img src="images/14_Minutes.jpeg" alt="">
+                <figcaption>album 9</figcaption>
+            </figure>
+        
+            </li> -->
+
+        </ul>
+
+
+        <button id="slideRight" type="button" class="mobile">-></button>
+
+
+    
+    </section>
+    <div class="divider">
+      SECTION DIVIDER
+    </div>  
+
+<div class="row">
+    <section class="second-feature-box box">     
+    featured
+    </section>
+
+    <section class="third-feature-box box">
+    lower sectiom2
+    </section>
+    <section class="fourth-feature-box box">
+      lower sectiom3
+      </section>
+</div>
+    <div class="divider">
+      SECTION DIVIDER
+    </div>  
+
+    <section class="second-feature-box">
+    lower sectiom
+    </section>
+
+    <footer>Oli Perkins</footer>
+</body>
+
+<script>
+  const buttonRight = document.getElementById('slideRight');
+  const buttonLeft = document.getElementById('slideLeft');
+  const container = document.getElementById('container');
+
+  let scrollInterval;
+
+  function startScrolling(scrollAmount) {
+    scrollInterval = setInterval(() => {
+      container.scrollLeft += scrollAmount;
+    }, 20); // Adjust the interval as needed for smooth scrolling
+  }
+
+  function stopScrolling() {
+    clearInterval(scrollInterval);
+  }
+
+  buttonRight.addEventListener('mousedown', () => startScrolling(10));
+  buttonLeft.addEventListener('mousedown', () => startScrolling(-10));
+
+  buttonRight.addEventListener('mouseup', stopScrolling);
+  buttonLeft.addEventListener('mouseup', stopScrolling);
+
+  buttonRight.addEventListener('mouseleave', stopScrolling);
+  buttonLeft.addEventListener('mouseleave', stopScrolling);
+</script>
+
+
+
+<script>
+    // JavaScript to dynamically set captions
+    document.addEventListener("DOMContentLoaded", () => {
+      const figures = document.querySelectorAll('.feature-box figure');
+
+      figures.forEach(figure => {
+        const img = figure.querySelector('img');
+        const caption = figure.querySelector('figcaption');
+
+        // Extract the filename from the src attribute and format it
+        const filename = img.src.split('/').pop().split('.')[0];
+        caption.textContent = filename.replace(/_/g, ' ').toUpperCase(); // Example: "igor" -> "IGOR"
+      });
+    });
+  </script>
+
+<script>
+// Add click event listeners to all figures
+document.addEventListener("DOMContentLoaded", () => {
+const figures = document.querySelectorAll('.feature-box figure');
+
+figures.forEach(figure => {
+figure.addEventListener('click', () => {
+  // Retrieve the URL from the `data-link` attribute
+  const link = figure.getAttribute('data-link');
+  if (link) {
+    window.location.href = link; // Navigate to the new page
+  }
+});
+});
+});
+</script>
+
+
+</html>

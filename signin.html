@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <header>
+      
+        <div class="mobile">
+            <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
+        
+        </div>
+        
+        
+        <nav>
+            <ul class="signin">
+                <li class="navbar signin"><a href=signin.html>sign in</a></li>
+
+            </ul>
+            <ul>
+
+                <ul>
+                  <li class="navbar"><a href=databasefunction.html>dev</a></li>
+                    <li class="navbar"><a href=index.html>Home</a></li>
+                    <li class="navbar"><a href=browse.html>Browse</a></li>
+                    <li class="navbar mobile"><a href=newmusic.html>new music</a></li>
+                    <li class="navbar mobile"><a href=contacts.html>playlists   </a></li>
+                    <li class="logo desktop-logo"><a>spotify logo</a></li>
+                    <li class="navbar desktop"><a href=newmusic.html>new music</a></li>
+                    <li class="navbar desktop"><a href=contacts.html>playlists</a></li>
+                </ul>
+
+
+            </ul>
+          
+
+        </nav>
+
+          
+
+      </header> 
+    
+      <div class="signin-style">
+        LOG IN
+      </div>
+
+    <section class="signin-center-section signin-style">
+      
+        <div class=" field-position ">
+            <input type="text" id="username" class="signin-text-style form-position" placeholder="Username" required>
+            <input type="password" id="password" class="signin-text-style form-position" placeholder="Password" required><br>
+            <button class="submit-style" onclick="loginUser()">Login</button>
+        </div>
+    </section>
+        <script>
+            async function loginUser() {
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+    
+                try {
+                    const response = await fetch("http://localhost:5000/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, password })
+                    });
+    
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(result.message);
+                        localStorage.setItem("username", result.username); // ✅ Save username
+                        window.location.href = "index.html"; // Redirect to homepage
+                    } else {
+                        alert(result.message);
+                    }
+                } catch (error) {
+                    console.error("Error logging in:", error);
+                    alert("❌ Login failed.");
+                }
+            }
+        </script>
+    
+    </body>
+</html>

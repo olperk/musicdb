@@ -1,0 +1,328 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <title>Project</title>
+
+  <link   rel="stylesheet" href="styles.css">
+
+  </head>
+  <body>
+
+
+
+    
+      <header>
+      
+        <div class="mobile">
+            <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
+        
+        </div>
+        
+        
+        <nav>
+            <ul class="signin">
+                <li class="navbar signin"><a href=signin.html>sign in</a></li>
+
+            </ul>
+            <ul>
+
+                <ul>
+                  <li class="navbar"><a href=databasefunction.html>dev</a></li>
+                    <li class="navbar"><a href=index.html>Home</a></li>
+                    <li class="navbar"><a href=browse.html>Browse</a></li>
+                    <li class="navbar mobile"><a href=newmusic.html>new music</a></li>
+                    <li class="navbar mobile"><a href=contacts.html>playlists   </a></li>
+                    <li class="logo desktop-logo"><a>spotify logo</a></li>
+                    <li class="navbar desktop"><a href=newmusic.html>new music</a></li>
+                    <li class="navbar desktop"><a href=contacts.html>playlists</a></li>
+                </ul>
+
+
+            </ul>
+          
+
+        </nav>
+
+          
+
+      </header> 
+
+  <div class="title feature-box">   
+
+      <h3>Top Albums Today</h3>
+
+  </div>
+
+      <section  class="feature-box">
+
+
+      
+        <button id="slideLeft" type="button" class="mobile"><-</button>
+
+
+          <ul id="container">
+              <li> <figure data-link="contacts.html">       
+                <img src="images/temp.png" alt="">
+                <figcaption>album 1</figcaption>
+            </figure>
+          </li>
+
+              <li>
+                <figure>       
+                  <img src="images/temp.png" alt="">
+                  <figcaption>album 2</figcaption>
+              </figure>
+              </li>
+
+              <li>
+                <figure>       
+                  <img src="images/temp.png" alt="">
+                  <figcaption>album 3</figcaption>
+                  
+              </figure>
+              </li>
+
+              <li>
+                
+          <figure>       
+            <img src="images/temp.png" alt="">
+            <figcaption>album 4</figcaption>
+        </figure>
+              </li>
+
+              <li>
+                <figure>       
+                  <img src="images/temp.png" alt="">
+                  <figcaption>album 5</figcaption>
+              </figure>
+              </li>
+
+              <li>
+                <figure>       
+                  <img src="images/temp.png" alt="">
+                  <figcaption>album 6</figcaption>
+              </figure>
+          
+              </li>
+
+              <li>
+                <figure>       
+                  <img src="images/temp.png" alt="">
+                  <figcaption>album 7</figcaption>
+              </figure>
+          
+              </li>
+
+
+          </ul>
+
+
+          <button id="slideRight" type="button" class="mobile">-></button>
+
+<script>
+
+async function fetchSongs() {
+    try {
+        const response = await fetch("http://localhost:5000/api/songs"); // ✅ Ensure correct API route
+        const data = await response.json();
+        console.log("Fetched Songs:", data);
+
+        const container = document.getElementById("container");
+        container.innerHTML = ""; // Clear previous list
+
+        data.forEach(song => {
+            const li = document.createElement("li");
+            
+            const figure = document.createElement("figure");
+
+            // ✅ Set album link if available
+            if (song.album) {
+                figure.setAttribute("data-link", `album.html?album=${encodeURIComponent(song.album)}`);
+            }
+
+            // ✅ Create Image Element
+            const img = document.createElement("img");
+            img.src = song.imageUrl ? song.imageUrl : "images/temp.png"; // Use song image or default placeholder
+            img.alt = song.title;
+            figure.appendChild(img);
+
+            // ✅ Add Album Name or Song Title
+            const figcaption = document.createElement("figcaption");
+            figcaption.textContent = song.album ? song.album : song.title;
+            figure.appendChild(figcaption);
+
+            li.appendChild(figure);
+            container.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error("Error fetching songs:", error);
+    }
+}
+
+// ✅ Load songs when the page loads
+document.addEventListener("DOMContentLoaded", fetchSongs);
+</script>
+      
+      </section>
+      <div class="divider">
+        SECTION DIVIDER
+      </div>  
+      <div class="title ">   
+
+        <h3>Featured Review</h3>
+
+        </div>    
+
+  <div class="row">
+      <section class="review-feature-box box">     
+        <section class="review-border"> 
+
+          <div class="review-border-title">
+              <h1> 
+              TITLE OF REVIEW
+              </h1>
+              <p class="review-title-author"> 
+              BY AUTHOR_NAME
+              </p>
+              <div>
+                RATING
+              </div>
+          </div>
+
+          <div class="review-border-content-container">
+          
+            <div class="review-border-content-song"> 
+              
+              <div class="review-border-content-song-cover">
+                <img src="images/temp.png" alt="">
+              </div>
+              <p>
+                song name + author
+              </p>
+            </div>
+            <div class="review-border-content-text"> 
+              review contents
+            </div>
+                    </div>
+
+        </section>
+      </section>
+      
+
+      <section class="third-feature-box box">
+      
+        <section class="review-border"> 
+
+          <div class="review-border-title">
+              <h1> 
+              TITLE OF REVIEW
+              </h1>
+              <p class="review-title-author"> 
+              BY AUTHOR_NAME
+              </p>
+              <div>
+                RATING
+              </div>
+          </div>
+
+          <div class="review-border-content-container">
+          
+            <div class="review-border-content-song"> 
+              
+              <div class="review-border-content-song-cover">
+                <img src="images/temp.png" alt="">
+              </div>
+              <p>
+                song name + author
+              </p>
+            </div>
+            <div class="review-border-content-text"> 
+              review contents
+            </div>
+                    </div>
+
+        </section>
+
+
+      </section>
+      
+  </div>
+      <div class="divider">
+        SECTION DIVIDER
+      </div>  
+
+      <section class="third-feature-box">
+        
+      </section>
+
+      <footer>Oli Perkins</footer>
+  </body>
+
+<script>
+  const buttonRight = document.getElementById('slideRight');
+  const buttonLeft = document.getElementById('slideLeft');
+  const container = document.getElementById('container');
+
+  let scrollInterval;
+
+  function startScrolling(scrollAmount) {
+    scrollInterval = setInterval(() => {
+      container.scrollLeft += scrollAmount;
+    }, 20); // Adjust the interval as needed for smooth scrolling
+  }
+
+  function stopScrolling() {
+    clearInterval(scrollInterval);
+  }
+
+  buttonRight.addEventListener('mousedown', () => startScrolling(10));
+  buttonLeft.addEventListener('mousedown', () => startScrolling(-10));
+
+  buttonRight.addEventListener('mouseup', stopScrolling);
+  buttonLeft.addEventListener('mouseup', stopScrolling);
+
+  buttonRight.addEventListener('mouseleave', stopScrolling);
+  buttonLeft.addEventListener('mouseleave', stopScrolling);
+</script>
+
+
+
+<script>
+    // JavaScript to dynamically set captions
+    document.addEventListener("DOMContentLoaded", () => {
+      const figures = document.querySelectorAll('.feature-box figure');
+
+      figures.forEach(figure => {
+        const img = figure.querySelector('img');
+        const caption = figure.querySelector('figcaption');
+
+        // Extract the filename from the src attribute and format it
+        const filename = img.src.split('/').pop().split('.')[0];
+        caption.textContent = filename.replace(/_/g, ' ').toUpperCase(); // Example: "igor" -> "IGOR"
+      });
+    });
+  </script>
+
+<script>
+// Add click event listeners to all figures
+document.addEventListener("DOMContentLoaded", () => {
+const figures = document.querySelectorAll('.feature-box figure');
+
+figures.forEach(figure => {
+figure.addEventListener('click', () => {
+  // Retrieve the URL from the `data-link` attribute
+  const link = figure.getAttribute('data-link');
+  if (link) {
+    window.location.href = link; // Navigate to the new page
+  }
+});
+});
+});
+</script>
+
+
+
+
+
+</html>

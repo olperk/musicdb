@@ -1,0 +1,698 @@
+
+body {
+    background-color: rgb(71, 71, 71);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+   
+}
+header {
+    background-color:  black;
+    padding :20px;
+    height: 50px;
+    text-align: center;
+    font-size: medium;
+
+   
+
+}
+
+
+section{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+section ul li{
+    text-wrap:wrap;
+    display: inline-block;
+    height: 200px;
+}
+
+
+section ul{
+    text-wrap:wrap;
+    list-style-type: none;
+    white-space: nowrap;
+    display: inline-block;
+    height: 200px;
+}
+
+.title h3{
+    text-align: left;
+    padding-left: 50px;
+    padding-top:10px;
+    padding-bottom: 0px;
+    margin: 0;
+    font-size:large;
+    }
+
+    #container {
+        overflow-x: hidden;
+        overflow-y: hidden;
+        padding: 30px;
+        height:fit-content;
+        scrollbar-width: none;
+    }
+    
+     
+.feature-box{
+    background-color: rgb(26, 26, 26);
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    overflow: auto;
+
+    
+
+}
+
+.feature-box figure{
+
+    margin: 0 2%;
+    width: 200px;
+    box-shadow: 3px 3px 1px 1px orangered;    
+    border-radius: 10px;
+}
+
+.feature-box figure:first-child{
+
+    margin-left: 50px;
+}
+
+
+
+
+.feature-box figure:hover{
+ 
+    background-color:rgb(52, 52, 52) ;
+    width: 200px;
+    border-radius: 10px ;
+    box-shadow: 0px 0px 1px 4px orangered;    
+}
+
+.feature-box figure img{
+
+    
+    width: 200px;
+
+    border-radius: 10px 6px 0 0 ;
+    
+    
+
+}
+
+.feature-box figcaption{
+
+    padding: 10px 0px;
+    font-weight: bold;
+    font-size: small;
+    
+
+}
+
+.feature-box figure:active{
+
+    transform: scale(0.95);
+    
+
+}
+
+.feature-box button{
+
+background-color: rgb(53, 53, 53);
+border-radius: 10px;
+box-shadow: 0px 0px 15px rgb(0, 0, 0);
+padding: 15px;
+
+}
+.feature-box button:last-child{
+
+    
+    margin-left: 20px;
+    margin-right: 0px;
+    
+    border: none;
+}
+
+.feature-box button:first-child{
+
+    
+    margin-left: 0px;
+    margin-right: 20px;
+    
+    border: none;
+}
+
+.mobile {
+display: none;
+
+}
+
+
+/* RESPONSE OF SECTION FEATURE BOX */
+
+@media screen and (max-width:1400px) {
+    
+    section .mobile {
+         display: block;
+     }
+       
+ }
+@media screen and (max-width:920px) {
+    .feature-box figure{
+        transform: scale(1);
+       margin-left: 0px;
+    }
+   /* section .mobile {
+        display: block;
+    } */
+      
+}
+
+
+
+/*  */
+/*  */
+/*  */
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    
+}
+
+.navbar{
+
+    color:white;
+
+}
+.navbar a{
+    color: white;
+    display: inline-block;
+    margin: 0px 10px ;
+    border-radius: 3px;
+    padding: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    
+
+}
+nav li {
+    
+    display: inline-block;
+    margin: 0px 10px ;
+  
+    border-radius: 3px;
+    padding: 5px;
+
+}
+
+.signin li{
+
+   float:right;
+}
+
+
+.logo a {
+
+    background-repeat: no-repeat;
+    background-image: url("images/musicdblogotrans.png");
+    background-size: 300px;
+    display: inline-block;
+    height: 250px;
+    text-indent: -9999999px;
+    width: 300px;
+    position: relative;
+    top: -140px;
+}
+
+header .mobile{
+    display: none;
+}
+
+header .mobile-logo{
+    display: none;
+}
+
+div .mobile {
+    display: none;
+}
+
+div .mobile-logo-position {
+    
+    /* background-color: red; */
+    margin: 0px;
+    background-size: 300px;
+    display: inline-block;
+    height: 40px;
+    width: 300px;
+    position: relative;
+    top: 8px;
+}
+/* responsive rules */
+
+
+@media screen and (max-width: 920px){
+    
+    header {
+        height: 70px;
+    }
+
+    header .mobile{
+        display: inline-block;
+    }
+    
+    div .mobile{
+        display: inline-block
+    }
+
+    header .desktop{
+        display: none; 
+    }
+
+    header .mobile-logo{
+        display: inline-block;
+    }
+
+    header .desktop-logo{
+        display: none;
+    }
+       
+    
+    
+
+    @media screen and (max-width: 600px){
+        .navbar a{
+    
+            background-color: red;
+            margin: 0px 0px ;
+            border-radius: 3px;
+            padding: 1spx;
+        }
+    
+        .logo a {
+        background-size: 250px;
+        top: -115px;
+            height: 150px;
+            width: 250px;
+            /* background-color: red; */
+        }
+        
+    
+        }
+
+}
+/* @media screen and (max-width: 860px){
+    .navbar a{
+
+        font-size: smaller;
+    }
+} */
+
+footer{
+    padding: 10px 20px;
+    background-color: black;
+    height: 50px;
+}
+
+
+
+
+
+
+.divider{
+background-color: rgb(0, 0, 0);
+height: 50px;
+
+
+/* REVIEW BOX STYLES */
+/* REVIEW BOX STYLES */
+/* REVIEW BOX STYLES */
+/* REVIEW BOX STYLES */
+/* REVIEW BOX STYLES */
+
+
+}
+.review-feature-box{
+    background-color: rgb(39, 39, 39);
+    height: 400px;
+    font-size: medium;
+    
+}
+
+.review-border {
+
+    background-color: red;
+    width: 95%;
+    display: inline-block;
+
+
+}
+
+.review-border-title{
+
+    background-color: green ;
+    height: 70px;
+    width: 95%;
+    display: flex;
+    margin-bottom: 30px;
+
+}
+
+        .review-border-title h1{
+            background-color: blue;
+            margin-left: 10px;
+        }
+
+        .review-border-title div{
+            background-color: blue;
+            width: 100px;
+            margin-left: auto;
+            margin-right: 10px;
+            text-align: center;
+
+        }
+
+
+        .review-title-author {
+            background-color: purple;
+            margin-left: 10px;
+
+        }
+
+.review-border-content-container{
+
+    background-color: green;
+    height: 240px;
+    width: 95%;
+    display: flex;
+  
+
+}
+.review-border-content-song{
+
+    background-color: rgb(0, 242, 255);
+    width: 30%;
+    padding: 10px;
+}
+
+.review-border-content-song div{
+
+    background-color: yellow;
+    width: 180px;
+    height: 180px;
+    
+    margin:auto;
+}
+.review-border-content-song div img{
+
+    
+    width: 180px;
+    height: 180px;
+}
+
+
+
+
+
+
+
+.review-border-content-text{
+
+    background-color: rgb(255, 209, 2);
+    width: 70%;
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* r */
+
+.third-feature-box{
+    background-color: rgb(47, 47, 47);
+    height: 400px;
+    font-size: medium;
+}
+.fourth-feature-box{
+    background-color: rgb(29, 29, 29);
+    height: 200px;
+    font-size: medium;
+}
+
+
+.row {
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+}
+.box {
+    width: 50%;
+}
+
+
+
+
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+/*SIGN IN CSS STYLE*/
+
+
+
+.signin-style {
+
+    justify-content:center;
+    text-align: center;
+    height: max-content;
+    padding: 20px;
+    text-transform: uppercase;
+    background-color: blue;
+}
+
+.signin-center-section {
+    height: 500px;
+    background-color: rgb(0, 0, 0);
+    justify-content: center;
+    
+}
+
+.form-position {
+    margin:20px;
+    padding:15px;
+    width: 50%;
+    background: rgb(255, 255, 255);
+    display:inline;
+
+}
+
+.submit-style {
+
+    padding: 8px 22px;
+    border-radius:5px;
+    border:none;
+}
+
+.field-position {
+    text-align:center;
+    background-color: rgb(42, 42, 42);
+    border-color: orangered;
+    border-radius: 10px;
+    border-style:solid;
+   
+}
+.seperate-fields{
+
+margin-bottom :50px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+
+
+.sigin-text-style {
+
+    color: white;
+    margin-bottom:5px;
+
+}
+
+    .sigin-text-style input[type=text] {
+        border-radius: 10px;
+        border:none;
+        margin: 5px;
+        padding:4px;
+        transition: 300ms box-shadow ease-in-out;
+    }
+    .sigin-text-style input[type=text]:hover {
+        box-shadow: 0px 0px 1px 3px black;
+    }
+
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+/* new-music */
+
+
+
+.new-music-container {
+    background-color: green;
+        height: fit-content;
+        width:90%; 
+        justify-content: center;
+    margin: auto;
+   
+
+}
+
+.new-music-list-container{
+    margin: 50px;
+    width: 90%;
+    height:fit-content;
+  
+
+
+    background-color: red;
+
+}
+.new-music-list-container ul{
+    margin: 50px;
+    width: 90%;
+    height:fit-content;
+    background-color: rgb(241, 16, 237);
+    
+
+}
+
+.new-music-list-container li{
+   display: flex;
+   margin-bottom: 5px;
+
+}
+
+
+.new-music-list-element{
+
+    width:90%;
+    height: 240px;
+    margin: auto;
+    background-color: blue;
+    display: flex;
+}
+
+.new-music-list-element div img{
+    margin: 17px;
+    width: 210px;
+    height: 210px;
+}
+
+.new-music-list-element-album-info{
+
+    width: fit-content;
+    background-color: orange;
+
+}
+
+.new-music-list-element-album-info div{
+    margin-top: 7   px;
+    padding: 20px;
+    background-color: rgb(139, 119, 252);
+    
+}
+/* browse selection */
+/* browse selection */
+/* browse selection */
+/* browse selection */
+/* browse selection */
+/* browse selection */
+/* browse selection */
+/* browse selection */
+
+.browse-search-bar-container{
+    background-color: blue;
+    width: 90%;
+    margin: auto;
+    padding: 30px;
+    height: max-content;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.browse-search-bar-container input{
+    background-color: rgba(255, 255, 255, 0.882);
+    height: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 2px solid orangered;
+}
+
+.browse-search-bar{
+    width: 90%;
+    
+}
+
+.browse-container {
+    display: flex;
+    width: 90%;
+    background-color: green;
+    height: max-content;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+.browse-element-container{
+
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    margin: 20px;
+}
+
+.browse-element-container p{
+    margin: 0px;
+
+   
+}
+
+.browse-element-container img{
+
+   
+    margin-top: 10px;
+    margin-left: 23px;
+    margin-right: 23px;
+    width: 250px;
+    height: 250px;
+    background-color: red;
+  
+}
+
+.browse-element-img-caption{
+
+    text-align: center;
+    padding: 0px;
+    background-color: aqua  ;
+
+}

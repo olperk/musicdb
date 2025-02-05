@@ -160,7 +160,7 @@ display: none;
 
 /* RESPONSE OF SECTION FEATURE BOX */
 
-@media screen and (max-width:1400px) {
+@media screen and (min-width:1400px) {
     
     section .mobile {
          display: block;

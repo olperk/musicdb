@@ -314,7 +314,7 @@
   buttonRight.addEventListener('click', () => startScrolling(10));
   buttonLeft.addEventListener('mousedown', () => startScrolling(-10));
 
-  buttonRight.addEventListener('click', stopScrolling);
+  buttonRight.addEventListener('hold', stopScrolling);
   buttonLeft.addEventListener('mouseup', stopScrolling);
 
   buttonRight.addEventListener('mouseleave', stopScrolling);

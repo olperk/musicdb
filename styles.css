@@ -25,6 +25,8 @@ section{
     padding: 20px;
     display: flex;
     flex-direction: row;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 section ul li{
@@ -40,8 +42,7 @@ section ul{
     white-space: nowrap;
     display: inline-block;
     height: 200px;
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
+   
 }
 
 .title h3{

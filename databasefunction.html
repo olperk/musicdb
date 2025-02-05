@@ -80,7 +80,7 @@
       <script>
           async function fetchSongs() {
               try {
-                  const response = await fetch("http://localhost:5000/api/songs"); // ✅ Ensure correct API route
+                  const response = await fetch("https://musicdb-z941.onrender.com/api/songs"); // ✅ Ensure correct API route
                   const data = await response.json();
                   console.log("Fetched Songs:", data);
   

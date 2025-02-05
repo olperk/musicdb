@@ -78,72 +78,88 @@
       <div id="songList" class="song-container"></div>
   
       <script>
-          async function fetchSongs() {
+        async function fetchSongs() {
             const urls = [
                 "http://localhost:5000/api/songs",
                 "https://musicdb-z941.onrender.com/api/songs"
             ];
     
-            let data = []; // Default empty array
+            let data = [];
     
             for (const url of urls) {
                 try {
+                    console.log(`🔍 Trying to fetch from: ${url}`);
                     const response = await fetch(url);
+                    
                     if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
     
                     data = await response.json();
-                    console.log(`✅ Fetched songs from: ${url}`, data);
-                    break; // Stop trying other URLs once one works
+                    console.log(`✅ Successfully fetched songs from: ${url}`, data);
+                    break; // Stop trying once we successfully fetch data
                 } catch (error) {
                     console.warn(`❌ Failed to fetch from: ${url}`, error);
                 }
             }
     
             if (data.length === 0) {
-                console.error("❌ All API endpoints failed.");
+                console.error("❌ No data received from any API endpoint.");
                 return;
             }
-                  const songList = document.getElementById("songList");
-                  songList.innerHTML = ""; // Clear previous list
-  
-                  data.forEach(song => {
-                      const songCard = document.createElement("div");
-                      songCard.classList.add("song-card");
-  
-                      // ✅ Create Image Element
-                      if (song.imageUrl) {
-                          const img = document.createElement("img");
-                          img.src = song.imageUrl;
-                          img.alt = song.title;
-                          songCard.appendChild(img);
-                      }
-  
-                      // ✅ Add Song Details
-                    //   const title = document.createElement("h3");
-                    //   title.textContent = song.title;
-                    //   songCard.appendChild(title);
-  
-                    //   const artist = document.createElement("p");
-                    //   artist.textContent = `Artist: ${song.artist}`;
-                    //   songCard.appendChild(artist);
-  
-                    //   const album = document.createElement("p");
-                    //   album.textContent = `Album: ${song.album || "Unknown"}`;
-                    //   songCard.appendChild(album);
-  
-                    //   const year = document.createElement("p");
-                    //   year.textContent = `Year: ${song.releaseYear || "N/A"}`;
-                    //   songCard.appendChild(year);
-  
-                      // ✅ Append Song Card to the List
-                      songList.appendChild(songCard);
-                  });
-              } 
-        
-  
-          // ✅ Load songs when the page loads
-          document.addEventListener("DOMContentLoaded", fetchSongs);
-      </script>
+    
+            console.log("🎵 Data received:", data);
+            displaySongs(data);
+        }
+    
+        function displaySongs(songs) {
+            const songList = document.getElementById("songList");
+    
+            if (!songList) {
+                console.error("❌ Element with ID 'songList' not found in HTML.");
+                return;
+            }
+    
+            songList.innerHTML = ""; // Clear previous list
+    
+            songs.forEach(song => {
+                const songCard = document.createElement("div");
+                songCard.classList.add("song-card");
+    
+                // ✅ Create Image Element
+                if (song.imageUrl) {
+                    const img = document.createElement("img");
+                    img.src = song.imageUrl;
+                    img.alt = song.title;
+                    songCard.appendChild(img);
+                }
+    
+                // ✅ Add Song Details
+                const title = document.createElement("h3");
+                title.textContent = song.title;
+                songCard.appendChild(title);
+    
+                const artist = document.createElement("p");
+                artist.textContent = `Artist: ${song.artist}`;
+                songCard.appendChild(artist);
+    
+                const album = document.createElement("p");
+                album.textContent = `Album: ${song.album || "Unknown"}`;
+                songCard.appendChild(album);
+    
+                const year = document.createElement("p");
+                year.textContent = `Year: ${song.releaseYear || "N/A"}`;
+                songCard.appendChild(year);
+    
+                // ✅ Append Song Card to the List
+                songList.appendChild(songCard);
+            });
+    
+            console.log("🎵 Songs displayed on the frontend!");
+        }
+    
+        // ✅ Load songs when the page loads
+        document.addEventListener("DOMContentLoaded", fetchSongs);
+    </script>
+    
   
   </body>   
 </html>

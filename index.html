@@ -193,6 +193,11 @@
             document.addEventListener("DOMContentLoaded", fetchSongs);
         </script>
         
+
+
+
+
+
       
       </section>
       <div class="divider">
@@ -306,10 +311,10 @@
     clearInterval(scrollInterval);
   }
 
-  buttonRight.addEventListener('mousedown', () => startScrolling(10));
+  buttonRight.addEventListener('click', () => startScrolling(10));
   buttonLeft.addEventListener('mousedown', () => startScrolling(-10));
 
-  buttonRight.addEventListener('mouseup', stopScrolling);
+  buttonRight.addEventListener('click', stopScrolling);
   buttonLeft.addEventListener('mouseup', stopScrolling);
 
   buttonRight.addEventListener('mouseleave', stopScrolling);

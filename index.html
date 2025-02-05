@@ -294,61 +294,60 @@
       <footer>Oli Perkins</footer>
   </body>
 
-  <script>
-    const buttonRight = document.getElementById("slideRight");
+  <script>const buttonRight = document.getElementById("slideRight");
     const buttonLeft = document.getElementById("slideLeft");
     const container = document.getElementById("container");
-
+    
     let scrollInterval;
     let touchStartX = 0;
     let touchEndX = 0;
-
+    
     // ✅ Start Scrolling
     function startScrolling(scrollAmount) {
         scrollInterval = setInterval(() => {
             container.scrollLeft += scrollAmount;
-        }, 20); // Adjust the interval as needed for smooth scrolling
+        }, 20); // Adjust speed
     }
-
+    
     // ✅ Stop Scrolling
     function stopScrolling() {
         clearInterval(scrollInterval);
     }
-
-    // ✅ Button Click Events for Desktop
+    
+    // ✅ Button Click Events (For Desktop Users)
     buttonRight.addEventListener("click", () => startScrolling(10));
     buttonLeft.addEventListener("click", () => startScrolling(-10));
-
+    
     buttonRight.addEventListener("mousedown", () => startScrolling(10));
     buttonLeft.addEventListener("mousedown", () => startScrolling(-10));
-
+    
     buttonRight.addEventListener("mouseup", stopScrolling);
     buttonLeft.addEventListener("mouseup", stopScrolling);
-
+    
     buttonRight.addEventListener("mouseleave", stopScrolling);
     buttonLeft.addEventListener("mouseleave", stopScrolling);
-
-    // ✅ Touchscreen Swipe Support
+    
+    // ✅ Touchscreen Swipe Support (For Mobile Users)
     container.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX; // Get starting touch position
+        touchStartX = e.touches[0].clientX; // Store initial touch position
     });
-
+    
     container.addEventListener("touchmove", (e) => {
         touchEndX = e.touches[0].clientX;
         let swipeDistance = touchStartX - touchEndX;
-
+    
         // Adjust sensitivity
-        if (Math.abs(swipeDistance) > 20) {
-            container.scrollLeft += swipeDistance * 0.5; // Adjust speed of scrolling
-            touchStartX = touchEndX; // Update touch start for continuous movement
+        if (Math.abs(swipeDistance) > 20) { // Minimum swipe length
+            container.scrollLeft += swipeDistance * 0.5; // Adjust scroll speed
+            touchStartX = touchEndX; // Update for smooth scrolling
         }
     });
-
+    
     container.addEventListener("touchend", () => {
         touchStartX = 0;
         touchEndX = 0;
     });
-
+    
 </script>
 
 

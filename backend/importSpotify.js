@@ -83,4 +83,18 @@ async function importSpotifySongs(query) {
 }
 
 // ✅ Run the Function (Searches for a Specific Artist or Song)
-importSpotifySongs("Dominic Fike"); // Change "Queen" to any artist/song you want to import
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.question('pcik an artist? ', ans => {
+    importSpotifySongs(`${ans}`);
+    rl.close();
+  });
+
+
+//  // Change "Queen" to any artist/song you want to import

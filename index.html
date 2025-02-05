@@ -294,32 +294,63 @@
       <footer>Oli Perkins</footer>
   </body>
 
-<script>
-  const buttonRight = document.getElementById('slideRight');
-  const buttonLeft = document.getElementById('slideLeft');
-  const container = document.getElementById('container');
+  <script>
+    const buttonRight = document.getElementById("slideRight");
+    const buttonLeft = document.getElementById("slideLeft");
+    const container = document.getElementById("container");
 
-  let scrollInterval;
+    let scrollInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-  function startScrolling(scrollAmount) {
-    scrollInterval = setInterval(() => {
-      container.scrollLeft += scrollAmount;
-    }, 20); // Adjust the interval as needed for smooth scrolling
-  }
+    // ✅ Start Scrolling
+    function startScrolling(scrollAmount) {
+        scrollInterval = setInterval(() => {
+            container.scrollLeft += scrollAmount;
+        }, 20); // Adjust the interval as needed for smooth scrolling
+    }
 
-  function stopScrolling() {
-    clearInterval(scrollInterval);
-  }
+    // ✅ Stop Scrolling
+    function stopScrolling() {
+        clearInterval(scrollInterval);
+    }
 
-  buttonRight.addEventListener('click', () => startScrolling(10));
-  buttonLeft.addEventListener('mousedown', () => startScrolling(-10));
+    // ✅ Button Click Events for Desktop
+    buttonRight.addEventListener("click", () => startScrolling(10));
+    buttonLeft.addEventListener("click", () => startScrolling(-10));
 
-  buttonRight.addEventListener('hold', stopScrolling);
-  buttonLeft.addEventListener('mouseup', stopScrolling);
+    buttonRight.addEventListener("mousedown", () => startScrolling(10));
+    buttonLeft.addEventListener("mousedown", () => startScrolling(-10));
 
-  buttonRight.addEventListener('mouseleave', stopScrolling);
-  buttonLeft.addEventListener('mouseleave', stopScrolling);
+    buttonRight.addEventListener("mouseup", stopScrolling);
+    buttonLeft.addEventListener("mouseup", stopScrolling);
+
+    buttonRight.addEventListener("mouseleave", stopScrolling);
+    buttonLeft.addEventListener("mouseleave", stopScrolling);
+
+    // ✅ Touchscreen Swipe Support
+    container.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX; // Get starting touch position
+    });
+
+    container.addEventListener("touchmove", (e) => {
+        touchEndX = e.touches[0].clientX;
+        let swipeDistance = touchStartX - touchEndX;
+
+        // Adjust sensitivity
+        if (Math.abs(swipeDistance) > 20) {
+            container.scrollLeft += swipeDistance * 0.5; // Adjust speed of scrolling
+            touchStartX = touchEndX; // Update touch start for continuous movement
+        }
+    });
+
+    container.addEventListener("touchend", () => {
+        touchStartX = 0;
+        touchEndX = 0;
+    });
+
 </script>
+
 
 
 

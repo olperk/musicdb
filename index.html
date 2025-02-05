@@ -124,9 +124,35 @@
 async function fetchSongs() {
     try {
       
-        const response = await fetch("http://localhost:5000/api/songs" || "https://musicdb-z941.onrender.com/api/songs"); // ✅ Ensure correct API route
-        const data = await response.json();
-        console.log("Fetched Songs:", data);
+      console.log("✅ Connected to DBFUNCTION  HOST")
+        async function fetchSongs() {
+            const urls = [
+                "http://localhost:5000/api/songs",
+                "https://musicdb-z941.onrender.com/api/songs"
+            ];
+    
+            let data = [];
+    
+            for (const url of urls) {
+                try {
+                    console.log(`🔍 Trying to fetch from: ${url}`);
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+    
+                    data = await response.json();
+                    console.log(`✅ Successfully fetched songs from: ${url}`, data);
+                    break; // Stop trying once we successfully fetch data
+                } catch (error) {
+                    console.warn(`❌ Failed to fetch from: ${url}`, error);
+                }
+            }
+    
+            if (data.length === 0) {
+                console.error("❌ No data received from any API endpoint.");
+                return;
+            }
+
 
         const container = document.getElementById("container");
         container.innerHTML = ""; // Clear previous list
@@ -155,7 +181,7 @@ async function fetchSongs() {
             li.appendChild(figure);
             container.appendChild(li);
         });
-
+      }
     } catch (error) {
         console.error("Error fetching songs:", error);
     }

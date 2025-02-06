@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         const songs = await Song.find();
         res.json(songs);
     } catch (error) {
-        res.status(500).json({ message: "❌ Error fetching songs", error });
+        res.status(500).json({ message: " Error fetching songs", error });
     }
 });
 

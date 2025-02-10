@@ -78,7 +78,7 @@
   
       <h2>Music Collection</h2>
   
-      <!-- ✅ Song List -->
+      <!--  Song List -->
       <div id="songList" class="song-container"></div>
   
       <script>
@@ -129,7 +129,11 @@
                 const songCard = document.createElement("div");
                 songCard.classList.add("song-card");
     
+<<<<<<< HEAD
                 //  Create Image Element
+=======
+                // Create Image Element
+>>>>>>> 9799799b7d006f5df81b602d7754aa001970579f
                 if (song.imageUrl) {
                     const img = document.createElement("img");
                     img.src = song.imageUrl;
@@ -137,7 +141,11 @@
                     songCard.appendChild(img);
                 }
     
+<<<<<<< HEAD
                 //  Add Song Details
+=======
+                // Add Song Details
+>>>>>>> 9799799b7d006f5df81b602d7754aa001970579f
                 const title = document.createElement("h3");
                 title.textContent = song.title;
                 songCard.appendChild(title);
@@ -154,14 +162,18 @@
                 year.textContent = `Year: ${song.releaseYear || "N/A"}`;
                 songCard.appendChild(year);
     
+<<<<<<< HEAD
                 //  Append Song Card to the List
+=======
+                // Append Song Card to the List
+>>>>>>> 9799799b7d006f5df81b602d7754aa001970579f
                 songList.appendChild(songCard);
             });
     
             console.log("Songs displayed on the frontend");
         }
     
-        // ✅ Load songs when the page loads
+        // Load songs when the page loads
         document.addEventListener("DOMContentLoaded", fetchSongs);
 
 

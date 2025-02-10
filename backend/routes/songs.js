@@ -3,7 +3,7 @@ const Song = require("../models/songs");
 
 const router = express.Router();
 
-// ✅ POST route to add a new song
+//  POST route to add a new song
 router.post("/", async (req, res) => {
     try {
         const newSong = new Song(req.body);
@@ -22,13 +22,13 @@ router.post("/", async (req, res) => {
 
 
 
-// ✅ GET all songs and return JSON response
+//  GET all songs and return JSON response
 router.get("/", async (req, res) => {
     try {
         const songs = await Song.find();
         res.json(songs);
     } catch (error) {
-        res.status(500).json({ message: "❌ Error fetching songs", error });
+        res.status(500).json({ message: " Error fetching songs", error });
     }
 });
 

@@ -61,7 +61,8 @@
                 const password = document.getElementById("password").value;
     
                 try {
-                    const response = await fetch("http://localhost:5000/api/auth/login" || "https://musicdb-z941.onrender.com/api/auth/login" , {
+                    const response = await fetch("https://musicdb-z941.onrender.com/api/auth/login" , {
+                        // http://localhost:5000/api/auth/login" || 
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ username, password })
@@ -70,14 +71,14 @@
                     const result = await response.json();
                     if (response.ok) {
                         alert(result.message);
-                        localStorage.setItem("username", result.username); // ✅ Save username
+                        localStorage.setItem("username", result.username); //  Save username
                         window.location.href = "index.html"; // Redirect to homepage
                     } else {
                         alert(result.message);
                     }
                 } catch (error) {
                     console.error("Error logging in:", error);
-                    alert("❌ Login failed.");
+                    alert("ERROR Login failed.");
                 }
             }
         </script>

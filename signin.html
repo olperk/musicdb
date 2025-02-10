@@ -71,14 +71,14 @@
                     const result = await response.json();
                     if (response.ok) {
                         alert(result.message);
-                        localStorage.setItem("username", result.username); // ✅ Save username
+                        localStorage.setItem("username", result.username); //  Save username
                         window.location.href = "index.html"; // Redirect to homepage
                     } else {
                         alert(result.message);
                     }
                 } catch (error) {
                     console.error("Error logging in:", error);
-                    alert("❌ Login failed.");
+                    alert("ERROR Login failed.");
                 }
             }
         </script>

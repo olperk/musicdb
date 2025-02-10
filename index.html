@@ -119,6 +119,12 @@
 
           <button id="slideRight" type="button" class="mobile">-></button>
 
+
+          
+        
+
+
+
           <script>
             async function fetchSongs() {
                 const urls = [
@@ -130,14 +136,13 @@
         
                 for (const url of urls) {
                     try {
-                        console.log(`🔍 Trying to fetch from: ${url}`);
+                        console.log(`🔍 Fetching songs from: ${url}`);
                         const response = await fetch(url);
-        
                         if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
         
                         data = await response.json();
                         console.log(`✅ Successfully fetched songs from: ${url}`, data);
-                        break; // Stop trying other URLs once one works
+                        break; // Stop trying once we successfully fetch data
                     } catch (error) {
                         console.warn(`❌ Failed to fetch from: ${url}`, error);
                     }
@@ -148,52 +153,61 @@
                     return;
                 }
         
-                console.log("🎵 Data received:", data);
-                displaySongs(data);
+                console.log("🎵 Song data received:", data);
+                attachClickEventsToFigures(data);
             }
         
-            function displaySongs(songs) {
-                const container = document.getElementById("container");
+            function attachClickEventsToFigures(songs) {
+                const figures = document.querySelectorAll('.feature-box figure');
         
-                if (!container) {
-                    console.error("❌ Element with ID 'container' not found in HTML.");
+                if (!figures.length) {
+                    console.error("❌ No figures found in .feature-box");
                     return;
                 }
         
-                container.innerHTML = ""; // Clear previous list
+                figures.forEach((figure, index) => {
+                    const img = figure.querySelector("img");
+                    const caption = figure.querySelector("figcaption");
         
-                songs.forEach(song => {
-                    const li = document.createElement("li");
-                    const figure = document.createElement("figure");
+                    // ✅ Match figure with an API song (assuming figures < song data available)
+                    if (songs[index]) {
+                        const song = songs[index];
         
-                    // ✅ Set album link if available
-                    if (song.album) {
-                        figure.setAttribute("data-link", `album.html?album=${encodeURIComponent(song.album)}`);
+                        // ✅ Set data attributes dynamically for redirection
+                        figure.dataset.id = song._id;
+                        figure.dataset.title = song.title;
+                        figure.dataset.artist = song.artist;
+                        figure.dataset.album = song.album || "Unknown";
+                        figure.dataset.image = song.imageUrl || "images/temp.png";
+        
+                        // ✅ Update UI elements
+                        if (img) img.src = song.imageUrl || "images/temp.png";
+                        if (caption) caption.textContent = song.title;
+        
+                        // ✅ Attach click event
+                        figure.addEventListener("click", function () {
+                            const songId = this.dataset.id;
+                            const title = encodeURIComponent(this.dataset.title);
+                            const artist = encodeURIComponent(this.dataset.artist);
+                            const album = encodeURIComponent(this.dataset.album);
+                            const image = encodeURIComponent(this.dataset.image);
+        
+                            // Redirect to song details page
+                            window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
+                        });
                     }
-        
-                    // ✅ Create Image Element
-                    const img = document.createElement("img");
-                    img.src = song.imageUrl ? song.imageUrl : "images/temp.png"; // Use song image or default placeholder
-                    img.alt = song.title;
-                    figure.appendChild(img);
-        
-                    // ✅ Add Album Name or Song Title
-                    const figcaption = document.createElement("figcaption");
-                    figcaption.textContent = song.album ? song.album : song.title;
-                    figure.appendChild(figcaption);
-        
-                    li.appendChild(figure);
-                    container.appendChild(li);
                 });
         
-                console.log("🎵 Songs displayed on the frontend!");
+                console.log("✅ Click events attached to feature-box figures.");
             }
         
-            // ✅ Load songs when the page loads
+            // ✅ Load songs and attach events when the page loads
             document.addEventListener("DOMContentLoaded", fetchSongs);
         </script>
         
-
+        
+        
+      
 
 
 
@@ -294,7 +308,8 @@
       <footer>Oli Perkins</footer>
   </body>
 
-  <script>const buttonRight = document.getElementById("slideRight");
+  <script>
+    const buttonRight = document.getElementById("slideRight");
     const buttonLeft = document.getElementById("slideLeft");
     const container = document.getElementById("container");
     
@@ -391,3 +406,4 @@ figure.addEventListener('click', () => {
 
 
 </html>
+            

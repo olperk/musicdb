@@ -33,5 +33,19 @@ router.get("/", async (req, res) => {
 });
 
 
+router.get("/:id", async (req, res) => {
+    try {
+        const song = await Song.findById(req.params.id);
+        if (!song) {
+            return res.status(404).json({ message: "Song not found" });
+        }
+        res.json(song);
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+
+
 
 module.exports = router;

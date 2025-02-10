@@ -129,7 +129,7 @@
                 const songCard = document.createElement("div");
                 songCard.classList.add("song-card");
     
-                // ✅ Create Image Element
+                //  Create Image Element
                 if (song.imageUrl) {
                     const img = document.createElement("img");
                     img.src = song.imageUrl;
@@ -137,7 +137,7 @@
                     songCard.appendChild(img);
                 }
     
-                // ✅ Add Song Details
+                //  Add Song Details
                 const title = document.createElement("h3");
                 title.textContent = song.title;
                 songCard.appendChild(title);
@@ -154,17 +154,98 @@
                 year.textContent = `Year: ${song.releaseYear || "N/A"}`;
                 songCard.appendChild(year);
     
-                // ✅ Append Song Card to the List
+                //  Append Song Card to the List
                 songList.appendChild(songCard);
             });
     
-            console.log("🎵 Songs displayed on the frontend!");
+            console.log("Songs displayed on the frontend");
         }
     
         // ✅ Load songs when the page loads
         document.addEventListener("DOMContentLoaded", fetchSongs);
+
+
+        songCard.addEventListener("click", function () {
+            const songId = this.dataset.id;
+            const title = encodeURIComponent(this.dataset.title);
+            const artist = encodeURIComponent(this.dataset.artist);
+            const album = encodeURIComponent(this.dataset.album);
+            const image = encodeURIComponent(this.dataset.image);
+
+            // Redirect to song details page
+            window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
+        });
+
+        console.log("Songs displayed & event listeners added.");
     </script>
-    
+    <script>
+
+function displaySongs(songs) {
+    const songList = document.getElementById("songList");
+
+    if (!songList) {
+        console.error("❌ Element with ID 'songList' not found in HTML.");
+        return;
+    }
+
+    songList.innerHTML = ""; // Clear previous list
+
+    songs.forEach(song => {
+        const songCard = document.createElement("div");
+        songCard.classList.add("song-card");
+
+        // ✅ Add data attributes for event listener
+        songCard.dataset.id = song._id;
+        songCard.dataset.title = song.title;
+        songCard.dataset.artist = song.artist;
+        songCard.dataset.album = song.album || "Unknown";
+        songCard.dataset.image = song.imageUrl || "";
+
+        // ✅ Create Image Element
+        if (song.imageUrl) {
+            const img = document.createElement("img");
+            img.src = song.imageUrl;
+            img.alt = song.title;
+            songCard.appendChild(img);
+        }
+
+        // ✅ Add Song Details
+        const title = document.createElement("h3");
+        title.textContent = song.title;
+        songCard.appendChild(title);
+
+        const artist = document.createElement("p");
+        artist.textContent = `Artist: ${song.artist}`;
+        songCard.appendChild(artist);
+
+        const album = document.createElement("p");
+        album.textContent = `Album: ${song.album || "Unknown"}`;
+        songCard.appendChild(album);
+
+        const year = document.createElement("p");
+        year.textContent = `Year: ${song.releaseYear || "N/A"}`;
+        songCard.appendChild(year);
+
+        // ✅ Attach Click Event Listener
+            songCard.addEventListener("click", function () {
+                const songId = this.dataset.id;
+                const title = encodeURIComponent(this.dataset.title);
+                const artist = encodeURIComponent(this.dataset.artist);
+                const album = encodeURIComponent(this.dataset.album);
+                const image = encodeURIComponent(this.dataset.image);
+
+                // Redirect to song details page
+                window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
+            });
+
+        // ✅ Append Song Card to the List
+        songList.appendChild(songCard);
+    });
+
+    console.log("✅ Songs displayed & event listeners added.");
+}
+
+    </script>
   
   </body>   
 </html>

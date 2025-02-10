@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #song-details {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            color: black;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+<header>
+      
+    <div class="mobile">
+        <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
+    
+    </div>
+    
+    
+    <nav>
+        <ul class="signin">
+            <li class="navbar signin"><a href=signin.html>sign in</a></li>
+
+        </ul>
+        <ul>
+
+            <ul>
+              <li class="navbar"><a href=databasefunction.html>dev</a></li>
+                <li class="navbar"><a href=index.html>Home</a></li>
+                <li class="navbar"><a href=browse.html>Browse</a></li>
+                <li class="navbar mobile"><a href=newmusic.html>new music</a></li>
+                <li class="navbar mobile"><a href=contacts.html>playlists   </a></li>
+                <li class="logo desktop-logo"><a>spotify logo</a></li>
+                <li class="navbar desktop"><a href=newmusic.html>new music</a></li>
+                <li class="navbar desktop"><a href=contacts.html>playlists</a></li>
+            </ul>
+
+
+        </ul>
+      
+
+    </nav>
+
+      
+
+  </header> 
+
+
+
+</head>
+<body>
+
+    <div id="song-details">
+        <img id="album-art" src="" alt="Album Art">
+        <h1 id="song-title">Loading...</h1>
+        <h2 id="song-artist"></h2>
+        <p id="song-album"></p>
+        <p id="song-year"></p>
+        <p id="song-duration"></p>
+        <p id="song-streams"></p>
+        <p id="song-likes"></p>
+    </div>
+
+    <script>
+        // Function to get song ID from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("id"); // Get the song ID
+        }
+
+        async function fetchSongDetails() {
+            const songId = getQueryParams();
+
+            if (!songId) {
+                document.getElementById("song-title").textContent = "Song not found";
+                return;
+            }
+
+            // API Endpoints (Tries Localhost First, Then Deployed API)
+            const urls = [
+                `http://localhost:5000/api/songs/${songId}`,
+                `https://musicdb-z941.onrender.com/api/songs/${songId}`
+            ];
+
+            let songData = null;
+
+            for (const url of urls) {
+                try {
+                    console.log(`🔍 Fetching song details from: ${url}`);
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    
+                    songData = await response.json();
+                    console.log(`✅ Song details fetched successfully`, songData);
+                    break; // Stop trying once data is fetched
+                } catch (error) {
+                    console.warn(`❌ Failed to fetch from: ${url}`, error);
+                }
+            }
+
+            if (!songData) {
+                document.getElementById("song-title").textContent = "Song details not found";
+                return;
+            }
+
+            // ✅ Populate Song Details in HTML
+            document.getElementById("album-art").src = songData.imageUrl || "placeholder.jpg";
+            document.getElementById("album-art").alt = songData.title;
+            document.getElementById("song-title").textContent = songData.title;
+            document.getElementById("song-artist").textContent = `Artist: ${songData.artist}`;
+            document.getElementById("song-album").textContent = `Album: ${songData.album || "Unknown"}`;
+            document.getElementById("song-year").textContent = `Released: ${songData.releaseYear || "N/A"}`;
+            document.getElementById("song-duration").textContent = `Duration: ${songData.duration} seconds`;
+            document.getElementById("song-streams").textContent = `Streams: ${songData.streamCount}`;
+            document.getElementById("song-likes").textContent = `Likes: ${songData.likes}`;
+        }
+
+        // ✅ Load song details when the page loads
+        document.addEventListener("DOMContentLoaded", fetchSongDetails);
+    </script>
+
+</body>
+</html>

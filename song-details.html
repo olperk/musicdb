@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: black;
+        }
+
+        #song-details,
+        #album-details {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li class="navbar"><a href="index.html">Home</a></li>
+                <li class="navbar"><a href="browse.html">Browse</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="song-details">
+        <img id="album-art" src="" alt="Album Art">
+        <h1 id="song-title">Loading...</h1>
+        <h2 id="song-artist"></h2>
+        <p id="song-album"></p>
+        <p id="song-year"></p>
+        <p id="song-duration"></p>
+        <p id="song-streams"></p>
+        <p id="song-likes"></p>
+    </div>
+
+    <!-- Album Details (Hidden Initially) -->
+    <div id="album-details" class="hidden">
+        <h2>Album Information</h2>
+        <img id="album-artwork" src="" alt="Album Cover">
+        <h3 id="album-name"></h3>
+        <p id="album-artist"></p>
+        <p id="album-release-year"></p>
+        <p id="album-tracks"></p>
+    </div>
+
+    <script>
+        async function fetchSongDetails() {
+            const songId = new URLSearchParams(window.location.search).get("id");
+
+            if (!songId) {
+                document.getElementById("song-title").textContent = "Song not found";
+                return;
+            }
+
+            // ✅ Fetch Song Details from Database
+            const urls = [
+                `http://localhost:5000/api/songs/${songId}`,
+                `https://musicdb-z941.onrender.com/api/songs/${songId}`
+            ];
+
+            let songData = null;
+
+            for (const url of urls) {
+                try {
+                    console.log(`🔍 Fetching song details from: ${url}`);
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+
+                    songData = await response.json();
+                    console.log(`✅ Song details fetched successfully`, songData);
+                    break; // Stop trying once data is fetched
+                } catch (error) {
+                    console.warn(`❌ Failed to fetch from: ${url}`, error);
+                }
+            }
+
+            if (!songData) {
+                document.getElementById("song-title").textContent = "Song details not found";
+                return;
+            }
+
+            // ✅ Populate Song Details
+            document.getElementById("album-art").src = songData.imageUrl || "placeholder.jpg";
+            document.getElementById("album-art").alt = songData.title;
+            document.getElementById("song-title").textContent = songData.title;
+            document.getElementById("song-artist").textContent = `Artist: ${songData.artist}`;
+            document.getElementById("song-album").textContent = `Album: ${songData.album || "Unknown"}`;
+            document.getElementById("song-year").textContent = `Released: ${songData.releaseYear || "N/A"}`;
+            document.getElementById("song-duration").textContent = `Duration: ${songData.duration} seconds`;
+            document.getElementById("song-streams").textContent = `Streams: ${songData.streamCount}`;
+            document.getElementById("song-likes").textContent = `Likes: ${songData.likes}`;
+
+            // ✅ Check if Album Exists & Fetch from Spotify if Needed
+            if (songData.album) {
+                await checkAlbumInDatabase(songData.album);
+            }
+        }
+
+        async function checkAlbumInDatabase(albumName) {
+            try {
+                console.log(`🔍 Checking if album '${albumName}' exists in the database...`);
+
+                const response = await fetch(`http://localhost:5000/api/albums/search?name=${encodeURIComponent(albumName)}`);
+
+                if (response.status === 404) {
+                    console.log(`❌ Album not found in database. Fetching from Spotify...`);
+                    await fetchAlbumFromSpotify(albumName); // ✅ Fetch from Spotify if 404
+                    return null;
+                }
+
+                if (!response.ok) {
+                    console.warn("❌ API request failed. Album not found.");
+                    return null;
+                }
+
+                const albumData = await response.json();
+
+                // ✅ Ensure that an empty array is treated as "not found"
+                if (!albumData || (Array.isArray(albumData) && albumData.length === 0)) {
+                    console.log(`❌ Album not found in database. Fetching from Spotify...`);
+                    await fetchAlbumFromSpotify(albumName);
+                    return null;
+                }
+
+                console.log(`✅ Album found in database:`, albumData);
+                displayAlbum(albumData);
+                return albumData;
+            } catch (error) {
+                console.error(`❌ Error checking album in database:`, error);
+                return null;
+            }
+        }
+
+        async function getSpotifyAccessToken() {
+    try {
+        const response = await fetch("http://localhost:5000/api/spotify/getSpotifyToken", {
+            method: "POST" //
+        });
+
+        const data = await response.json();
+        
+        if (!data.access_token) {
+            throw new Error("Failed to retrieve Spotify token");
+        }
+
+        return data.access_token;
+    } catch (error) {
+        console.error("❌ Error getting Spotify access token:", error);
+        return null;
+    }
+}
+
+
+
+
+
+        async function fetchAlbumFromSpotify(albumName) {
+            const accessToken = await getSpotifyAccessToken();
+            const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(albumName)}&type=album&limit=1`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            if (!response.ok) throw new Error(`Spotify API Error: ${response.status}`);
+            const spotifyData = await response.json();
+
+            if (spotifyData.albums.items.length > 0) {
+                const album = spotifyData.albums.items[0];
+                console.log(`✅ Album fetched from Spotify:`, album);
+
+                // ✅ Save album to your database
+                await saveAlbumToDatabase(album);
+
+                // ✅ Display album details
+                displayAlbum({
+                    name: album.name,
+                    artist: album.artists[0].name,
+                    releaseYear: album.release_date.split("-")[0],
+                    artwork: album.images[0]?.url || "placeholder.jpg",
+                    tracks: album.total_tracks
+                });
+            } else {
+                console.log(`❌ No album found on Spotify for '${albumName}'`);
+            }
+        }
+
+        async function saveAlbumToDatabase(album) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/albums`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: album.name,
+                        artist: album.artist,
+                        releaseYear: album.releaseYear,
+                        artwork: album.artwork,
+                        tracks: album.tracks
+                    })
+                });
+
+                if (response.ok) {
+                    console.log(`✅ Album saved to database.`);
+                } else {
+                    console.warn(`❌ Failed to save album to database.`);
+                }
+            } catch (error) {
+                console.error(`❌ Error saving album to database:`, error);
+            }
+        }
+
+        function displayAlbum(albumData) {
+            document.getElementById("album-details").classList.remove("hidden");
+            document.getElementById("album-artwork").src = albumData.artwork || "placeholder.jpg";
+            document.getElementById("album-name").textContent = albumData.name;
+            document.getElementById("album-artist").textContent = `Artist: ${albumData.artist}`;
+            document.getElementById("album-release-year").textContent = `Released: ${albumData.releaseYear}`;
+            document.getElementById("album-tracks").textContent = `Tracks: ${albumData.tracks}`;
+        }
+
+        // ✅ Load song details when the page loads
+        document.addEventListener("DOMContentLoaded", fetchSongDetails);
+    </script>
+
+
+</body>
+
+</html>

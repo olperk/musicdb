@@ -44,7 +44,7 @@ async function getSpotifyAccessToken() {
 // ✅ Fetch Songs from Spotify API by Search Query
 async function fetchSpotifySongs(query) {
     const accessToken = await getSpotifyAccessToken();
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`, {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }

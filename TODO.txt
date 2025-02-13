@@ -1,0 +1,6 @@
+make sign in work
+- add create account button
+- add review form when signed in 
+- playlists button when signed in 
+- make browse work with search + search filters
+- restyle some sections

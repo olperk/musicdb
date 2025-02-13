@@ -10,107 +10,108 @@
 
 
 
-    
+
       <header>
-      
-        <div class="mobile">
-            <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
-        
-        </div>
-        
-        
-        <nav>
-            <ul class="signin">
-                <li class="navbar signin"><a href=signin.html>sign in</a></li>
 
-            </ul>
-            <ul>
+          <div class="mobile">
+              <li class="logo mobile-logo mobile-logo-position"><a>spotify logo</a></li>
 
-                <ul>
-                  <li class="navbar"><a href=databasefunction.html>dev</a></li>
-                    <li class="navbar"><a href=index.html>Home</a></li>
-                    <li class="navbar"><a href=browse.html>Browse</a></li>
-                    <li class="navbar mobile"><a href=newmusic.html>new music</a></li>
-                    <li class="navbar mobile"><a href=contacts.html>playlists   </a></li>
-                    <li class="logo desktop-logo"><a>spotify logo</a></li>
-                    <li class="navbar desktop"><a href=newmusic.html>new music</a></li>
-                    <li class="navbar desktop"><a href=contacts.html>playlists</a></li>
-                </ul>
+          </div>
 
 
-            </ul>
-          
+          <nav>
+              <ul class="signin">
+                  <li class="navbar signin"><a href=signin.html>sign in</a></li>
 
-        </nav>
+              </ul>
+              <ul>
 
-          
+                  <ul>
+                      <li class="navbar"><a href=databasefunction.html>dev</a></li>
+                      <li class="navbar"><a href=index.html>Home</a></li>
+                      <li class="navbar"><a href=browse.html>Browse</a></li>
+                      <li class="navbar mobile"><a href=newmusic.html>new music</a></li>
+                      <li class="navbar mobile"><a href=contacts.html>playlists   </a></li>
+                      <li class="logo desktop-logo"><a>spotify logo</a></li>
+                      <li class="navbar desktop"><a href=newmusic.html>new music</a></li>
+                      <li class="navbar desktop"><a href=contacts.html>playlists</a></li>
+                  </ul>
 
-      </header> 
 
-  <div class="title feature-box">   
-
-      <h3>Top Albums Today</h3>
-
-  </div>
-
-      <section  class="feature-box">
+              </ul>
 
 
-      
-        <button id="slideLeft" type="button" class="mobile"><-</button>
+          </nav>
+
+
+
+      </header>
+
+      <div class="title feature-box">
+
+          <h3>Top Albums Today</h3>
+
+      </div>
+
+      <section class="feature-box">
+
+
+
+          <button id="slideLeft" type="button" class="mobile"><-</button>
 
 
           <ul id="container">
-              <li> <figure data-link="contacts.html">       
-                <img src="images/temp.png" alt="">
-                <figcaption>album 1</figcaption>
-            </figure>
-          </li>
-
               <li>
-                <figure>       
-                  <img src="images/temp.png" alt="">
-                  <figcaption>album 2</figcaption>
-              </figure>
+                  <figure data-link="contacts.html">
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 1</figcaption>
+                  </figure>
               </li>
 
               <li>
-                <figure>       
-                  <img src="images/temp.png" alt="">
-                  <figcaption>album 3</figcaption>
-                  
-              </figure>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 2</figcaption>
+                  </figure>
               </li>
 
               <li>
-                
-          <figure>       
-            <img src="images/temp.png" alt="">
-            <figcaption>album 4</figcaption>
-        </figure>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 3</figcaption>
+
+                  </figure>
               </li>
 
               <li>
-                <figure>       
-                  <img src="images/temp.png" alt="">
-                  <figcaption>album 5</figcaption>
-              </figure>
+
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 4</figcaption>
+                  </figure>
               </li>
 
               <li>
-                <figure>       
-                  <img src="images/temp.png" alt="">
-                  <figcaption>album 6</figcaption>
-              </figure>
-          
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 5</figcaption>
+                  </figure>
               </li>
 
               <li>
-                <figure>       
-                  <img src="images/temp.png" alt="">
-                  <figcaption>album 7</figcaption>
-              </figure>
-          
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 6</figcaption>
+                  </figure>
+
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 7</figcaption>
+                  </figure>
+
               </li>
 
 
@@ -120,189 +121,361 @@
           <button id="slideRight" type="button" class="mobile">-></button>
 
 
-          
-        
+
+
 
 
 
           <script>
-            async function fetchSongs() {
-                const urls = [
-                    "http://localhost:5000/api/songs",
-                    "https://musicdb-z941.onrender.com/api/songs"
-                ];
-        
-                let data = [];
-        
-                for (const url of urls) {
-                    try {
-                        console.log(`🔍 Fetching songs from: ${url}`);
-                        const response = await fetch(url);
-                        if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
-        
-                        data = await response.json();
-                        console.log(`✅ Successfully fetched songs from: ${url}`, data);
-                        break; // Stop trying once we successfully fetch data
-                    } catch (error) {
-                        console.warn(`❌ Failed to fetch from: ${url}`, error);
-                    }
-                }
-        
-                if (data.length === 0) {
-                    console.error("❌ No data received from any API endpoint.");
-                    return;
-                }
-        
-                console.log("🎵 Song data received:", data);
-                attachClickEventsToFigures(data);
-            }
-        
-            function attachClickEventsToFigures(songs) {
-                const figures = document.querySelectorAll('.feature-box figure');
-        
-                if (!figures.length) {
-                    console.error("❌ No figures found in .feature-box");
-                    return;
-                }
-        
-                figures.forEach((figure, index) => {
-                    const img = figure.querySelector("img");
-                    const caption = figure.querySelector("figcaption");
-        
-                    // ✅ Match figure with an API song (assuming figures < song data available)
-                    if (songs[index]) {
-                        const song = songs[index];
-        
-                        // ✅ Set data attributes dynamically for redirection
-                        figure.dataset.id = song._id;
-                        figure.dataset.title = song.title;
-                        figure.dataset.artist = song.artist;
-                        figure.dataset.album = song.album || "Unknown";
-                        figure.dataset.image = song.imageUrl || "images/temp.png";
-        
-                        // ✅ Update UI elements
-                        if (img) img.src = song.imageUrl || "images/temp.png";
-                        if (caption) caption.textContent = song.title;
-        
-                        // ✅ Attach click event
-                        figure.addEventListener("click", function () {
-                            const songId = this.dataset.id;
-                            const title = encodeURIComponent(this.dataset.title);
-                            const artist = encodeURIComponent(this.dataset.artist);
-                            const album = encodeURIComponent(this.dataset.album);
-                            const image = encodeURIComponent(this.dataset.image);
-        
-                            // Redirect to song details page
-                            window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
-                        });
-                    }
-                });
-        
-                console.log("✅ Click events attached to feature-box figures.");
-            }
-        
-            // ✅ Load songs and attach events when the page loads
-            document.addEventListener("DOMContentLoaded", fetchSongs);
-        </script>
-        
-        
-        
-      
+              async function fetchSongs() {
+                  const urls = [
+                      "http://localhost:5000/api/songs",
+                      "https://musicdb-z941.onrender.com/api/songs"
+                  ];
+
+                  let data = [];
+
+                  for (const url of urls) {
+                      try {
+                          console.log(`🔍 Fetching songs from: ${url}`);
+                          const response = await fetch(url);
+                          if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+                          data = await response.json();
+                          console.log(`✅ Successfully fetched songs from: ${url}`, data);
+                          break; // Stop trying once we successfully fetch data
+                      } catch (error) {
+                          console.warn(`❌ Failed to fetch from: ${url}`, error);
+                      }
+                  }
+
+                  if (data.length === 0) {
+                      console.error("❌ No data received from any API endpoint.");
+                      return;
+                  }
+
+                  console.log("🎵 Song data received:", data);
+                  attachClickEventsToFigures(data);
+              }
+
+              function attachClickEventsToFigures(songs) {
+                  const figures = document.querySelectorAll('.feature-box figure');
+
+                  if (!figures.length) {
+                      console.error("❌ No figures found in .feature-box");
+                      return;
+                  }
+
+                  figures.forEach((figure, index) => {
+                      const img = figure.querySelector("img");
+                      const caption = figure.querySelector("figcaption");
+
+                      // ✅ Match figure with an API song (assuming figures < song data available)
+                      if (songs[index]) {
+                          const song = songs[index];
+
+                          // ✅ Set data attributes dynamically for redirection
+                          figure.dataset.id = song._id;
+                          figure.dataset.title = song.title;
+                          figure.dataset.artist = song.artist;
+                          figure.dataset.album = song.album || "Unknown";
+                          figure.dataset.image = song.imageUrl || "images/temp.png";
+
+                          // ✅ Update UI elements
+                          if (img) img.src = song.imageUrl || "images/temp.png";
+                          if (caption) caption.textContent = song.title;
+
+                          // ✅ Attach click event
+                          figure.addEventListener("click", function () {
+                              const songId = this.dataset.id;
+                              const title = encodeURIComponent(this.dataset.title);
+                              const artist = encodeURIComponent(this.dataset.artist);
+                              const album = encodeURIComponent(this.dataset.album);
+                              const image = encodeURIComponent(this.dataset.image);
+
+                              // Redirect to song details page
+                              window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
+                          });
+                      }
+                  });
+
+                  console.log("✅ Click events attached to feature-box figures.");
+              }
+
+              // ✅ Load songs and attach events when the page loads
+              document.addEventListener("DOMContentLoaded", fetchSongs);
+          </script>
 
 
 
 
-      
+
+
+
+
+
       </section>
       <div class="divider">
-        SECTION DIVIDER
-      </div>  
-      <div class="title ">   
-
-        <h3>Featured Review</h3>
-
-        </div>    
-
-  <div class="row">
-      <section class="review-feature-box box">     
-        <section class="review-border"> 
-
-          <div class="review-border-title">
-              <h1> 
-              TITLE OF REVIEW
-              </h1>
-              <p class="review-title-author"> 
-              BY AUTHOR_NAME
-              </p>
-              <div>
-                RATING
-              </div>
-          </div>
-
-          <div class="review-border-content-container">
           
-            <div class="review-border-content-song"> 
-              
-              <div class="review-border-content-song-cover">
-                <img src="images/temp.png" alt="">
-              </div>
-              <p>
-                song name + author
-              </p>
-            </div>
-            <div class="review-border-content-text"> 
-              review contents
-            </div>
-                    </div>
+      </div>
+      <div class="title feature-box">
 
-        </section>
+          <h3>Top Songs Today</h3>
+
+      </div>
+
+      <section class="feature-box">
+
+
+
+          <button id="slideLeft" type="button" class="mobile"><-</button>
+
+
+          <ul id="container">
+              <li>
+                  <figure data-link="contacts.html">
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 1</figcaption>
+                  </figure>
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 2</figcaption>
+                  </figure>
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 3</figcaption>
+
+                  </figure>
+              </li>
+
+              <li>
+
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 4</figcaption>
+                  </figure>
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 5</figcaption>
+                  </figure>
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 6</figcaption>
+                  </figure>
+
+              </li>
+
+              <li>
+                  <figure>
+                      <img src="images/temp.png" alt="">
+                      <figcaption>album 7</figcaption>
+                  </figure>
+
+              </li>
+
+
+          </ul>
+
+
+          <button id="slideRight" type="button" class="mobile">-></button>
+
+
+
+
+
+
+
+          <script>
+              async function fetchSongs() {
+                  const urls = [
+                      "http://localhost:5000/api/songs",
+                      "https://musicdb-z941.onrender.com/api/songs"
+                  ];
+
+                  let data = [];
+
+                  for (const url of urls) {
+                      try {
+                          console.log(`🔍 Fetching songs from: ${url}`);
+                          const response = await fetch(url);
+                          if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+                          data = await response.json();
+                          console.log(`✅ Successfully fetched songs from: ${url}`, data);
+                          break; // Stop trying once we successfully fetch data
+                      } catch (error) {
+                          console.warn(`❌ Failed to fetch from: ${url}`, error);
+                      }
+                  }
+
+                  if (data.length === 0) {
+                      console.error("❌ No data received from any API endpoint.");
+                      return;
+                  }
+
+                  console.log("🎵 Song data received:", data);
+                  attachClickEventsToFigures(data);
+              }
+
+              function attachClickEventsToFigures(songs) {
+                  const figures = document.querySelectorAll('.feature-box figure');
+
+                  if (!figures.length) {
+                      console.error("❌ No figures found in .feature-box");
+                      return;
+                  }
+
+                  figures.forEach((figure, index) => {
+                      const img = figure.querySelector("img");
+                      const caption = figure.querySelector("figcaption");
+
+                      // ✅ Match figure with an API song (assuming figures < song data available)
+                      if (songs[index]) {
+                          const song = songs[index];
+
+                          // ✅ Set data attributes dynamically for redirection
+                          figure.dataset.id = song._id;
+                          figure.dataset.title = song.title;
+                          figure.dataset.artist = song.artist;
+                          figure.dataset.album = song.album || "Unknown";
+                          figure.dataset.image = song.imageUrl || "images/temp.png";
+
+                          // ✅ Update UI elements
+                          if (img) img.src = song.imageUrl || "images/temp.png";
+                          if (caption) caption.textContent = song.title;
+
+                          // ✅ Attach click event
+                          figure.addEventListener("click", function () {
+                              const songId = this.dataset.id;
+                              const title = encodeURIComponent(this.dataset.title);
+                              const artist = encodeURIComponent(this.dataset.artist);
+                              const album = encodeURIComponent(this.dataset.album);
+                              const image = encodeURIComponent(this.dataset.image);
+
+                              // Redirect to song details page
+                              window.location.href = `song-details.html?id=${songId}&title=${title}&artist=${artist}&album=${album}&image=${image}`;
+                          });
+                      }
+                  });
+
+                  console.log("✅ Click events attached to feature-box figures.");
+              }
+
+              // ✅ Load songs and attach events when the page loads
+              document.addEventListener("DOMContentLoaded", fetchSongs);
+          </script>
+
+
+
+
+
+
+
+
+
       </section>
-      
-
-      <section class="third-feature-box box">
-      
-        <section class="review-border"> 
-
-          <div class="review-border-title">
-              <h1> 
-              TITLE OF REVIEW
-              </h1>
-              <p class="review-title-author"> 
-              BY AUTHOR_NAME
-              </p>
-              <div>
-                RATING
-              </div>
-          </div>
-
-          <div class="review-border-content-container">
-          
-            <div class="review-border-content-song"> 
-              
-              <div class="review-border-content-song-cover">
-                <img src="images/temp.png" alt="">
-              </div>
-              <p>
-                song name + author
-              </p>
-            </div>
-            <div class="review-border-content-text"> 
-              review contents
-            </div>
-                    </div>
-
-        </section>
 
 
-      </section>
-      
-  </div>
       <div class="divider">
-        SECTION DIVIDER
-      </div>  
+          SECTION DIVIDER
+      </div>
+      <div class="title ">
+
+          <h3>Featured Review</h3>
+
+      </div>
+
+      <div class="row">
+          <section class="review-feature-box box">
+              <section class="review-border">
+
+                  <div class="review-border-title">
+                      <h1>
+                          TITLE OF REVIEW
+                      </h1>
+                      <p class="review-title-author">
+                          BY AUTHOR_NAME
+                      </p>
+                      <div>
+                          RATING
+                      </div>
+                  </div>
+
+                  <div class="review-border-content-container">
+
+                      <div class="review-border-content-song">
+
+                          <div class="review-border-content-song-cover">
+                              <img src="images/temp.png" alt="">
+                          </div>
+                          <p>
+                              song name + author
+                          </p>
+                      </div>
+                      <div class="review-border-content-text">
+                          review contents
+                      </div>
+                  </div>
+
+              </section>
+          </section>
+
+
+          <section class="third-feature-box box">
+
+              <section class="review-border">
+
+                  <div class="review-border-title">
+                      <h1>
+                          TITLE OF REVIEW
+                      </h1>
+                      <p class="review-title-author">
+                          BY AUTHOR_NAME
+                      </p>
+                      <div>
+                          RATING
+                      </div>
+                  </div>
+
+                  <div class="review-border-content-container">
+
+                      <div class="review-border-content-song">
+
+                          <div class="review-border-content-song-cover">
+                              <img src="images/temp.png" alt="">
+                          </div>
+                          <p>
+                              song name + author
+                          </p>
+                      </div>
+                      <div class="review-border-content-text">
+                          review contents
+                      </div>
+                  </div>
+
+              </section>
+
+
+          </section>
+
+      </div>
+      <div class="divider">
+          SECTION DIVIDER
+      </div>
 
       <section class="third-feature-box">
-        
       </section>
 
       <footer>Oli Perkins</footer>
